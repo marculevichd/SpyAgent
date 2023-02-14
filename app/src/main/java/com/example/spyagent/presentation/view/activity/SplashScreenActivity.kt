@@ -1,4 +1,4 @@
-package com.example.spyagent.presentation.view
+package com.example.spyagent.presentation.view.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
