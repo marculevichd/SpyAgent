@@ -1,4 +1,4 @@
-package com.example.spyagent.presentation
+package com.example.spyagent.presentation.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
