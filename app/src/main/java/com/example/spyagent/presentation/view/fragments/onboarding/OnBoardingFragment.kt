@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.spyagent.databinding.FragmentOnBoardingBinding
 import com.example.spyagent.presentation.view.fragments.onboarding.onBoardingScreen.*
+import com.google.android.material.tabs.TabLayoutMediator
 
 class OnBoardingFragment : Fragment() {
 
@@ -36,6 +37,9 @@ class OnBoardingFragment : Fragment() {
         val adapter = ViewPagerAdapter(fragmentList, requireActivity().supportFragmentManager, lifecycle)
         viewBinding.viewPager.adapter = adapter
 
+
+        TabLayoutMediator(viewBinding.tabLayout, viewBinding.viewPager) { _, _ ->
+        }.attach()
 
 
     }
