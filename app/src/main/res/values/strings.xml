@@ -16,4 +16,5 @@
     <string name="with_the_consent_of_all_players_the_selected_player_voices_his_role_if_he_turns_out_to_be_a_civilian_the_spy_wins_if_the_spy_has_guessed_the_location_he_can_name_it_if_the_spy_guessed_right_he_wins_otherwise_he_loses">With the consent of all players, the selected player voices his role. If he turns out to be a Civilian, the Spy wins. If the Spy has guessed the location, he can name it. If the Spy guessed right, he wins, otherwise, he loses</string>
     <string name="remember_about_timer">Remember about timer</string>
     <string name="be_mindful_of_the_time_it_is_limited_and_plays_into_the_hands_of_the_spy_at_the_end_of_the_timer_the_spy_wins">Be mindful of the time. It is limited and plays into the hands of the spy. At the end of the timer, the Spy wins.</string>
+    <string name="skip">Skip</string>
 </resources>

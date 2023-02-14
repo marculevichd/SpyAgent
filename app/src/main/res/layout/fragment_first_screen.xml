@@ -11,7 +11,7 @@
         android:id="@+id/first_screen_image1"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:src="@drawable/face_male_good"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +21,7 @@
         android:id="@+id/first_screen_image2"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:src="@drawable/face_female_good"
         app:layout_constraintStart_toEndOf="@+id/first_screen_image1"
         app:layout_constraintTop_toBottomOf="@+id/first_screen_image1" />
@@ -30,7 +30,7 @@
         android:id="@+id/first_screen_image3"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:src="@drawable/face_spy"
         app:layout_constraintEnd_toStartOf="@+id/first_screen_image1"
         app:layout_constraintTop_toBottomOf="@+id/first_screen_image1" />
@@ -39,7 +39,7 @@
         android:id="@+id/first_screen_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:text="@string/get_a_role"
         android:textSize="40sp"
         android:textStyle="bold"
@@ -54,7 +54,7 @@
         android:layout_marginTop="50dp"
         android:paddingStart="50dp"
         android:paddingEnd="50dp"
-
+        android:lineSpacingExtra="6dp"
         android:text="@string/players_are_divided_into_two_types_spies_and_civilians_only_civilians_know_the_location_and_they_must_find_the_spy_the_spy_must_guess_the_location"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -63,11 +63,16 @@
 
     <Button
         android:id="@+id/btn_next_page"
+        android:backgroundTint="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:text="@string/next"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:drawableEnd="@drawable/ic_baseline_navigate_next_24"
+        android:drawableTint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
