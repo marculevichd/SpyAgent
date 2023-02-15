@@ -17,4 +17,63 @@
     <string name="remember_about_timer">Remember about timer</string>
     <string name="be_mindful_of_the_time_it_is_limited_and_plays_into_the_hands_of_the_spy_at_the_end_of_the_timer_the_spy_wins">Be mindful of the time. It is limited and plays into the hands of the spy. At the end of the timer, the Spy wins.</string>
     <string name="skip">Skip</string>
+    <string name="short_rule">Short rule</string>
+    <string name="open_in_browser">Open in browser</string>
+    <string name="first_screen_rule_title">Game objectives:</string>
+    <string name="first_screen_rule">
+    The spy: try to guess the round\'s location. Infer from others\' questions and answers.
+
+
+    Other players: figure out who the spy is.
+    </string>
+    <string name="second_screen_rule_title">Gameplay flow:</string>
+    <string name="second_screen_rule">
+    Round length: 6-10 minutes. Shorter for smaller groups, longer for larger.
+
+    The location: round starts, each player is given a location card. The location is the same for all players (e.g., the bank) except for one player, who is randomly given the "spy" card. The spy does not know the round\'s location.
+    </string>
+    <string name="third_screen_rule">
+    Questioning: the game leader begins by questioning another player about the location.
+
+    Answering: the questioned player must answer. No follow up questions allowed. After they answer, it\'s then their turn to ask someone else a question. This continues until round is over.
+    </string>
+    <string name="fourth_screen_rule_title">Players guessing the spy:</string>
+    <string name="fourth_screen_rule">
+    Putting up for vote: at any time, a player can try to indict a suspected spy by putting that suspect up for vote. Then go one by one clockwise around the circle, and each player much cast their vote if they\'re in agreement to indict.
+
+    Spy is indicted: if a player is indicted, they must reveal whether or not they are the spy and the round ends.
+    </string>
+    <string name="fifth_screen_rule_title">Spy guessing the location:</string>
+    <string name="fifth_screen_rule">
+    Spy guesses: at any time, the spy can reveal that they are the spy and make a guess at what the location is. The round immediately ends.
+    </string>
+    <string name="sixth_screen_rule_title">Round ends when:</string>
+    <string name="sixth_screen_rule">
+Indictment: group successfully indicts a player after voting
+
+                    OR
+
+Spy guesses: spy stops the round to make a guess about the location
+
+                    OR
+
+No time left: clock runs out
+    </string>
+    <string name="seventh_screen_rule_title">Scoring and who wins:</string>
+    <string name="seventh_screen_rule">
+Spy Victory
+
+    The spy earns 2 points if no one is successfully indicted of being the spy
+    The spy earns 4 points if a non-spy player is successfully indicted of being a spy
+    The spy earns 4 points if the spy stops the game and successfully guesses the location
+    </string>
+
+    <string name="eighth_screen_rule">
+Non-Spy Victory
+
+    Each non-spy player earns 1 point
+    The player who initiated the successful indictment of the spy earns 2 points instead
+    </string>
+
+
 </resources>

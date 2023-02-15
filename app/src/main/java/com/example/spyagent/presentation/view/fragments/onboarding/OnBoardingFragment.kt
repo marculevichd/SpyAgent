@@ -53,7 +53,10 @@ class OnBoardingFragment : Fragment() {
             viewModel.saveResultSawOnBoard()
             viewModel.navToNextFragment()
             viewModel.helpNav.observe(viewLifecycleOwner) {
-                navigateWithDeleteBackStack(it.destination, it.toDelete)
+                if (it != null) {
+                    navigateWithDeleteBackStack(it.destination, it.toDelete)
+                    viewModel.userNavigated()
+                }
             }
         }
 

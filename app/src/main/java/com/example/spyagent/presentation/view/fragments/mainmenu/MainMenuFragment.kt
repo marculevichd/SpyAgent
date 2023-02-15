@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.example.spyagent.R
 import com.example.spyagent.databinding.FragmentMainMenuBinding
+import com.example.spyagent.utils.NavHelper.navigate
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,8 +31,17 @@ class MainMenuFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-    }
 
+        viewBinding.ruleImage.setOnClickListener {
+            viewModel.navToRule()
+            viewModel.helpNav.observe(viewLifecycleOwner) {
+                navigate(it)
+            }
+        }
+
+
+
+    }
 
 
 }

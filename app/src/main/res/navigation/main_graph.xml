@@ -17,5 +17,22 @@
         android:id="@+id/mainMenuFragment"
         android:name="com.example.spyagent.presentation.view.fragments.mainmenu.MainMenuFragment"
         android:label="fragment_main_menu"
-        tools:layout="@layout/fragment_main_menu" />
+        tools:layout="@layout/fragment_main_menu" >
+        <action
+            android:id="@+id/action_mainMenuFragment_to_ruleFragment"
+            app:destination="@id/ruleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ruleFragment"
+        android:name="com.example.spyagent.presentation.view.fragments.mainmenu.rule.RuleFragment"
+        android:label="fragment_rule"
+        tools:layout="@layout/fragment_rule" >
+        <action
+            android:id="@+id/action_ruleFragment_to_webRuleFragment"
+            app:destination="@id/webRuleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/webRuleFragment"
+        android:name="com.example.spyagent.presentation.view.fragments.mainmenu.rule.WebRuleFragment"
+        android:label="WebRuleFragment" />
 </navigation>

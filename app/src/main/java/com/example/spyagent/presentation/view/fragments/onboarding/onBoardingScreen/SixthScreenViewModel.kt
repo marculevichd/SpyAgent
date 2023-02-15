@@ -20,11 +20,15 @@ class SixthScreenViewModel @Inject constructor(private val startNavigationIntera
     }
 
 
-    private var _helpNav = MutableLiveData<NavHelperSixthScreen>()
-    val helpNav: LiveData<NavHelperSixthScreen> = _helpNav
+    private var _helpNav = MutableLiveData<NavHelperSixthScreen?>()
+    val helpNav: LiveData<NavHelperSixthScreen?> = _helpNav
 
     fun navToNextFragment(){
         _helpNav.value = NavHelperSixthScreen(R.id.action_onBoardingFragment_to_mainMenuFragment, R.id.onBoardingFragment)
+    }
+
+    fun userNavigated(){
+        _helpNav.value = null
     }
 
 }
