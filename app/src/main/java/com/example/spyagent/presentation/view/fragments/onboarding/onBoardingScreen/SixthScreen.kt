@@ -5,14 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.viewpager2.widget.ViewPager2
-import com.example.spyagent.R
+import androidx.fragment.app.viewModels
 import com.example.spyagent.databinding.FragmentSixthScreenBinding
+import com.example.spyagent.utils.NavHelper.navigate
+import com.example.spyagent.utils.NavHelper.navigateWithDeleteBackStack
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SixthScreen : Fragment() {
 
     private var _viewBinding: FragmentSixthScreenBinding? = null
     private val viewBinding get() = _viewBinding!!
+
+    private val viewModel: SixthScreenViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,8 +32,11 @@ class SixthScreen : Fragment() {
 
 
         viewBinding.btnNextPage.setOnClickListener {
-
-
+            viewModel.saveResultSawOnBoard()
+            viewModel.navToNextFragment()
+            viewModel.helpNav.observe(viewLifecycleOwner) {
+                navigateWithDeleteBackStack(it.destination, it.toDelete)
+            }
         }
     }
 

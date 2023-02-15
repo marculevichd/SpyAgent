@@ -3,16 +3,21 @@ package com.example.spyagent.presentation.view.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.spyagent.R
 import com.example.spyagent.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var navController: NavController
+
+    private val viewModel: MainActivityViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,9 +32,21 @@ class MainActivity : AppCompatActivity() {
 
         navController = navHostFragment.navController
 
-        val navGraph = navController.navInflater.inflate(R.navigation.main_graph)
-        navGraph.setStartDestination(R.id.onBoardingFragment)
-        navController.graph = navGraph
+
+        viewModel.getResultSawOnBoard()
+
+        viewModel.sawOnBoard.observe(this) {
+            if (it == false) {
+                val navGraph = navController.navInflater.inflate(R.navigation.main_graph)
+                navGraph.setStartDestination(R.id.onBoardingFragment)
+                navController.graph = navGraph
+            } else {
+                val navGraph = navController.navInflater.inflate(R.navigation.main_graph)
+                navGraph.setStartDestination(R.id.mainMenuFragment)
+                navController.graph = navGraph
+            }
+        }
+
 
 
     }
