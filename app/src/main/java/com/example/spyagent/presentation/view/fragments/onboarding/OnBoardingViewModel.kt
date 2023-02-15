@@ -22,11 +22,15 @@ class OnBoardingViewModel @Inject constructor(private val startNavigationInterac
         _saveResultOnBoard.value = Unit
     }
 
-    private var _helpNav = MutableLiveData<HelpNavOnBoard>()
-    val helpNav: LiveData<HelpNavOnBoard> = _helpNav
+    private var _helpNav = MutableLiveData<HelpNavOnBoard?>()
+    val helpNav: LiveData<HelpNavOnBoard?> = _helpNav
 
     fun navToNextFragment(){
         _helpNav.value = HelpNavOnBoard(R.id.action_onBoardingFragment_to_mainMenuFragment, R.id.onBoardingFragment)
+    }
+
+    fun userNavigated(){
+        _helpNav.value = null
     }
 
 }
