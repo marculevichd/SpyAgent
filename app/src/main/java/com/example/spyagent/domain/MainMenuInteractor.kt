@@ -1,4 +1,7 @@
 package com.example.spyagent.domain
 
-class MainMenuInteractor {
+import javax.inject.Inject
+
+
+class MainMenuInteractor @Inject constructor(private val mainMenuRepository: MainMenuRepository) {
 }
