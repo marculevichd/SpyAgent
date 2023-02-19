@@ -74,6 +74,15 @@ Non-Spy Victory
     Each non-spy player earns 1 point
     The player who initiated the successful indictment of the spy earns 2 points instead
     </string>
+    <string name="sets">Sets</string>
+    <string name="save_change">Save change</string>
+    <string name="add_word">Add word</string>
+    <string name="set_name">Set name</string>
+    <string name="text_new_value">Text new value</string>
+    <string name="enter_new_word">Enter new word</string>
+    <string name="Confirm">Confirm</string>
+    <string name="Cancel">Cancel</string>
+    <string name="save_set">Save Set</string>
 
 
 </resources>

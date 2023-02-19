@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_mainMenuFragment_to_ruleFragment"
             app:destination="@id/ruleFragment" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_setsFragment"
+            app:destination="@id/setsFragment" />
     </fragment>
     <fragment
         android:id="@+id/ruleFragment"
@@ -35,4 +38,34 @@
         android:id="@+id/webRuleFragment"
         android:name="com.example.spyagent.presentation.view.fragments.mainmenu.rule.WebRuleFragment"
         android:label="WebRuleFragment" />
+    <fragment
+        android:id="@+id/setsFragment"
+        android:name="com.example.spyagent.presentation.view.fragments.mainmenu.sets.SetsFragment"
+        android:label="fragment_sets"
+        tools:layout="@layout/fragment_sets" >
+        <action
+            android:id="@+id/action_setsFragment_to_setDetailFragment"
+            app:destination="@id/setDetailFragment" />
+        <action
+            android:id="@+id/action_setsFragment_to_addNewSetFragment"
+            app:destination="@id/addNewSetFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/setDetailFragment"
+        android:name="com.example.spyagent.presentation.view.fragments.mainmenu.sets.SetDetailFragment"
+        android:label="fragment_set_detail"
+        tools:layout="@layout/fragment_set_detail" >
+        <action
+            android:id="@+id/action_setDetailFragment_to_setsFragment"
+            app:destination="@id/setsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewSetFragment"
+        android:name="com.example.spyagent.presentation.view.fragments.mainmenu.sets.AddNewSetFragment"
+        android:label="fragment_add_new_set"
+        tools:layout="@layout/fragment_add_new_set" >
+        <action
+            android:id="@+id/action_addNewSetFragment_to_setsFragment"
+            app:destination="@id/setsFragment" />
+    </fragment>
 </navigation>

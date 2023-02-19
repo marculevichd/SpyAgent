@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.example.spyagent.R
 import com.example.spyagent.databinding.FragmentMainMenuBinding
 import com.example.spyagent.utils.NavHelper.navigate
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,13 +33,23 @@ class MainMenuFragment : Fragment() {
 
         viewBinding.ruleImage.setOnClickListener {
             viewModel.navToRule()
-            viewModel.helpNav.observe(viewLifecycleOwner) {
-                navigate(it)
+            viewModel.helpNavRule.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    navigate(it)
+                    viewModel.userNavigatedToRule()
+                }
             }
         }
 
-
-
+        viewBinding.btnSets.setOnClickListener {
+            viewModel.navToSets()
+            viewModel.helpNavSets.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    navigate(it)
+                    viewModel.userNavigatedToSets()
+                }
+            }
+        }
     }
 
 
