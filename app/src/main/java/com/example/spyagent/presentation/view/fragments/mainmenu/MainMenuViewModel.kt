@@ -10,11 +10,25 @@ import javax.inject.Inject
 @HiltViewModel
 class MainMenuViewModel @Inject constructor() : ViewModel() {
 
-    private var _helpNav = MutableLiveData<Int>()
-    val helpNav : LiveData<Int> = _helpNav
+    private var _helpNavRule = MutableLiveData<Int?>()
+    val helpNavRule : LiveData<Int?> = _helpNavRule
 
     fun navToRule() {
-        _helpNav.value = R.id.action_mainMenuFragment_to_ruleFragment
+        _helpNavRule.value = R.id.action_mainMenuFragment_to_ruleFragment
+    }
+
+    fun userNavigatedToRule(){
+        _helpNavRule.value = null
+    }
+
+    private var _helpNavSets = MutableLiveData<Int?>()
+    val helpNavSets : LiveData<Int?> = _helpNavSets
+
+    fun navToSets() {
+        _helpNavSets.value = R.id.action_mainMenuFragment_to_setsFragment
+    }
+    fun userNavigatedToSets(){
+        _helpNavSets.value = null
     }
 
 }

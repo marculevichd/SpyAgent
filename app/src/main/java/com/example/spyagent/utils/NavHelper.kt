@@ -1,5 +1,6 @@
 package com.example.spyagent.utils
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -16,5 +17,7 @@ object NavHelper {
         findNavController().navigate(destinationId, null, navOption.build())
     }
 
-
+    fun Fragment.navigateWithBundle(destinationId: Int, bundle: Bundle){
+        findNavController().navigate(destinationId,bundle)
+    }
 }
