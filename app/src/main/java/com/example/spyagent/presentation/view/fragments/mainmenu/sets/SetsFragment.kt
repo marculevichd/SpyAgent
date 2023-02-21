@@ -44,7 +44,6 @@ class SetsFragment : Fragment(), SetsListener {
         viewBinding.recyclerViewFriends.layoutManager = LinearLayoutManager(context)
         viewBinding.recyclerViewFriends.adapter = setsAdapter
 
-        viewModel.addStartSet()
 
         viewModel.showSets()
         viewModel.listSets.observe(viewLifecycleOwner) {

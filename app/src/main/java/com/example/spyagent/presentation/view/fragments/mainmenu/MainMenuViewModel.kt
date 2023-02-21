@@ -3,12 +3,15 @@ package com.example.spyagent.presentation.view.fragments.mainmenu
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.spyagent.R
+import com.example.spyagent.domain.MainMenuInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainMenuViewModel @Inject constructor() : ViewModel() {
+class MainMenuViewModel @Inject constructor(private val mainMenuInteractor: MainMenuInteractor) : ViewModel() {
 
     private var _helpNavRule = MutableLiveData<Int?>()
     val helpNavRule : LiveData<Int?> = _helpNavRule
@@ -29,6 +32,14 @@ class MainMenuViewModel @Inject constructor() : ViewModel() {
     }
     fun userNavigatedToSets(){
         _helpNavSets.value = null
+    }
+
+    private var _firstSet = MutableLiveData<Unit>()
+    fun addStartSet() {
+        viewModelScope.launch {
+            mainMenuInteractor.addStartSet()
+            _firstSet.value = Unit
+        }
     }
 
 }

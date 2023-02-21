@@ -36,7 +36,8 @@ interface SetsDAO {
     fun updateSetName(newSetName: String, id:Int)
 
 
-
+    @Query("SELECT (SELECT COUNT (*) FROM sets_table)!=0")
+    fun doesStartSetExist(): Boolean
 
 
 

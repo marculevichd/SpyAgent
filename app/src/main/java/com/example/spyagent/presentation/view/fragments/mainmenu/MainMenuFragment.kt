@@ -41,6 +41,9 @@ class MainMenuFragment : Fragment() {
             }
         }
 
+        viewModel.addStartSet()
+
+
         viewBinding.btnSets.setOnClickListener {
             viewModel.navToSets()
             viewModel.helpNavSets.observe(viewLifecycleOwner) {

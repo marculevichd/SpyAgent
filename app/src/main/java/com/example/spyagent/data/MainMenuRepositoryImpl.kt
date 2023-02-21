@@ -5,25 +5,16 @@ import com.example.spyagent.data.database.sets.SetsDAO
 import com.example.spyagent.domain.MainMenuRepository
 import com.example.spyagent.domain.model.SetModel
 import com.example.spyagent.utils.Const.SET_NAME
-import com.example.spyagent.utils.Const.START_SET_NAME
-import com.example.spyagent.utils.Const.START_SET_WORD1
-import com.example.spyagent.utils.Const.START_SET_WORD10
-import com.example.spyagent.utils.Const.START_SET_WORD2
-import com.example.spyagent.utils.Const.START_SET_WORD3
-import com.example.spyagent.utils.Const.START_SET_WORD4
-import com.example.spyagent.utils.Const.START_SET_WORD5
-import com.example.spyagent.utils.Const.START_SET_WORD6
-import com.example.spyagent.utils.Const.START_SET_WORD7
-import com.example.spyagent.utils.Const.START_SET_WORD8
-import com.example.spyagent.utils.Const.START_SET_WORD9
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class MainMenuRepositoryImpl @Inject constructor(private val setsDAO: SetsDAO) :
-    MainMenuRepository {
+class MainMenuRepositoryImpl @Inject constructor(
+    private val setsDAO: SetsDAO,
+    private val apiService: ApiService
+) : MainMenuRepository {
 
 
     override suspend fun updateSetName(id: Int, newSetName: String) {
@@ -65,25 +56,32 @@ class MainMenuRepositoryImpl @Inject constructor(private val setsDAO: SetsDAO) :
     }
 
     override suspend fun addStartSet() {
-        return withContext(Dispatchers.IO) {
-            setsDAO.addSet(
-                SetEntity(
-                    1,
-                    START_SET_NAME,
-                    arrayListOf(
-                        START_SET_WORD1,
-                        START_SET_WORD2,
-                        START_SET_WORD3,
-                        START_SET_WORD4,
-                        START_SET_WORD5,
-                        START_SET_WORD6,
-                        START_SET_WORD7,
-                        START_SET_WORD8,
-                        START_SET_WORD9,
-                        START_SET_WORD10
+        withContext(Dispatchers.IO) {
+            if (!setsDAO.doesStartSetExist()) {
+
+                val response = apiService.getSetDataFromJson()
+
+                response.body()?.let {
+
+                    setsDAO.addSet(
+                        SetEntity(
+                            it.setId, it.title,
+                            arrayListOf(
+                                it.listWords[0].word1,
+                                it.listWords[1].word2,
+                                it.listWords[2].word3,
+                                it.listWords[3].word4,
+                                it.listWords[4].word5,
+                                it.listWords[5].word6,
+                                it.listWords[6].word7,
+                                it.listWords[7].word8,
+                                it.listWords[8].word9,
+                                it.listWords[9].word10
+                            )
+                        )
                     )
-                )
-            )
+                }
+            }
         }
     }
 

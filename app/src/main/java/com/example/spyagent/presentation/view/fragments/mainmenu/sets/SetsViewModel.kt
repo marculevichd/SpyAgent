@@ -58,13 +58,7 @@ class SetsViewModel @Inject constructor(private val mainMenuInteractor: MainMenu
     }
 
 
-    private var _firstSet = MutableLiveData<Unit>()
-    fun addStartSet() {
-        viewModelScope.launch {
-            mainMenuInteractor.addStartSet()
-            _firstSet.value = Unit
-        }
-    }
+
 
     private var _listSets = MutableLiveData<List<SetModel>>()
     val listSets: LiveData<List<SetModel>> = _listSets
