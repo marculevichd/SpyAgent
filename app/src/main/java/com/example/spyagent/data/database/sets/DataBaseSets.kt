@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [SetEntity::class], version = 1, exportSchema = false)
+@Database(entities = [SetEntity::class, GameSetEntity::class], version = 1, exportSchema = false)
 abstract class DataBaseSets : RoomDatabase() {
 
     abstract fun getSetsDAO(): SetsDAO

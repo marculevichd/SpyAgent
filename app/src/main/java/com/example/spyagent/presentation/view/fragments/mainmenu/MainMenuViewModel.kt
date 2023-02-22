@@ -34,6 +34,18 @@ class MainMenuViewModel @Inject constructor(private val mainMenuInteractor: Main
         _helpNavSets.value = null
     }
 
+    private var _helpNavCreateGame = MutableLiveData<Int?>()
+    val helpNavCreateGame : LiveData<Int?> = _helpNavCreateGame
+
+    fun navToCreateGame() {
+        _helpNavCreateGame.value = R.id.action_mainMenuFragment_to_createGameFragment
+    }
+    fun userNavigatedToCreateGame(){
+        _helpNavCreateGame.value = null
+    }
+
+
+
     private var _firstSet = MutableLiveData<Unit>()
     fun addStartSet() {
         viewModelScope.launch {

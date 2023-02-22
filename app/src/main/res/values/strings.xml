@@ -83,6 +83,14 @@ Non-Spy Victory
     <string name="Confirm">Confirm</string>
     <string name="Cancel">Cancel</string>
     <string name="save_set">Save Set</string>
+    <string name="number_of_players">Number of players</string>
+    <string name="number_of_spies">Number of spies</string>
+    <string name="timer_in_minutes">Timer in minutes</string>
+    <string name="show_category">Show category</string>
+    <string name="choose_category">Choose category</string>
+    <string name="create_game">Create game</string>
+    <string name="choose_categories_to_game">Choose categories to game</string>
+    <string name="add_category">Add category</string>
 
 
 </resources>

@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_mainMenuFragment_to_setsFragment"
             app:destination="@id/setsFragment" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_createGameFragment"
+            app:destination="@id/createGameFragment" />
     </fragment>
     <fragment
         android:id="@+id/ruleFragment"
@@ -67,5 +70,20 @@
         <action
             android:id="@+id/action_addNewSetFragment_to_setsFragment"
             app:destination="@id/setsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createGameFragment"
+        android:name="com.example.spyagent.presentation.view.fragments.mainmenu.createGame.CreateGameFragment"
+        android:label="fragment_create_game"
+        tools:layout="@layout/fragment_create_game" >
+        <action
+            android:id="@+id/action_createGameFragment_to_chooseCategoryFragment"
+            app:destination="@id/chooseCategoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chooseCategoryFragment"
+        android:name="com.example.spyagent.presentation.view.fragments.mainmenu.createGame.ChooseCategoryFragment"
+        android:label="fragment_choose_category"
+        tools:layout="@layout/fragment_choose_category" >
     </fragment>
 </navigation>

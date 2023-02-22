@@ -1,18 +1,18 @@
 package com.example.spyagent.data.database.sets
 
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 
-@Entity(tableName = "sets_table")
+@Entity(tableName = "game_sets_table")
 @TypeConverters(Converters::class)
-data class SetEntity(
+data class GameSetEntity(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo("id")
     val id: Int,
     @ColumnInfo("setName")
     val setName: String,
     @ColumnInfo("listWords")
-    val listWords: ArrayList<String>,
-    @ColumnInfo("isSelected")
-    val isSelected: Boolean,
-)
-
+    val listWords: ArrayList<String>
+    )

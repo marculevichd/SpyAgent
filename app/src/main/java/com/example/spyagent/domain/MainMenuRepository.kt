@@ -1,9 +1,16 @@
 package com.example.spyagent.domain
 
+import com.example.spyagent.domain.model.GameSetModel
 import com.example.spyagent.domain.model.SetModel
 import kotlinx.coroutines.flow.Flow
 
 interface MainMenuRepository {
+
+    suspend fun getSetsWhichSelected(): List<GameSetModel>
+
+    suspend fun addSetToGameDataBase(setModel: SetModel)
+
+    suspend fun deleteSetFromGameDataBase(gameSetModelId:Int)
 
     suspend fun getWordsNewSet(): Flow<SetModel>
 

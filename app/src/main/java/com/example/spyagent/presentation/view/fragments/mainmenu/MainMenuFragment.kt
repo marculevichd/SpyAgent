@@ -53,6 +53,17 @@ class MainMenuFragment : Fragment() {
                 }
             }
         }
+
+        viewBinding.btnCreateGame.setOnClickListener {
+            viewModel.navToCreateGame()
+            viewModel.helpNavCreateGame.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    navigate(it)
+                    viewModel.userNavigatedToCreateGame()
+                }
+            }
+        }
+
     }
 
 

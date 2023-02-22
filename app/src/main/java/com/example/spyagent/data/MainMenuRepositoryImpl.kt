@@ -1,8 +1,10 @@
 package com.example.spyagent.data
 
+import com.example.spyagent.data.database.sets.GameSetEntity
 import com.example.spyagent.data.database.sets.SetEntity
 import com.example.spyagent.data.database.sets.SetsDAO
 import com.example.spyagent.domain.MainMenuRepository
+import com.example.spyagent.domain.model.GameSetModel
 import com.example.spyagent.domain.model.SetModel
 import com.example.spyagent.utils.Const.SET_NAME
 import kotlinx.coroutines.Dispatchers
@@ -77,7 +79,8 @@ class MainMenuRepositoryImpl @Inject constructor(
                                 it.listWords[7].word8,
                                 it.listWords[8].word9,
                                 it.listWords[9].word10
-                            )
+                            ),
+                            false
                         )
                     )
                 }
@@ -103,7 +106,8 @@ class MainMenuRepositoryImpl @Inject constructor(
                 SetEntity(
                     id,
                     SET_NAME,
-                    arrayListOf()
+                    arrayListOf(),
+                    false
                 )
             )
         }
@@ -148,7 +152,8 @@ class MainMenuRepositoryImpl @Inject constructor(
                     SetModel(
                         it.id,
                         it.setName,
-                        it.listWords
+                        it.listWords,
+                        it.isSelected
                     )
                 }
             }
@@ -162,7 +167,8 @@ class MainMenuRepositoryImpl @Inject constructor(
                 SetModel(
                     it.id,
                     it.setName,
-                    it.listWords
+                    it.listWords,
+                    it.isSelected
                 )
             }
 
@@ -177,7 +183,8 @@ class MainMenuRepositoryImpl @Inject constructor(
                 SetModel(
                     it.id,
                     it.setName,
-                    it.listWords
+                    it.listWords,
+                    it.isSelected
                 )
             }
         }
@@ -198,11 +205,48 @@ class MainMenuRepositoryImpl @Inject constructor(
                     SetModel(
                         entity.id,
                         entity.setName,
-                        entity.listWords
+                        entity.listWords,
+                        entity.isSelected
                     )
                 }
             }
         }
-
     }
-}
+
+    override suspend fun addSetToGameDataBase(setModel: SetModel) {
+        withContext(Dispatchers.IO) {
+            setsDAO.updateSetIsSelected(true, setModel.id)
+
+            setsDAO.addGameSet(
+                GameSetEntity(
+                    setModel.id,
+                    setModel.setName,
+                    setModel.listWords
+                )
+            )
+        }
+    }
+
+    override suspend fun deleteSetFromGameDataBase(setModelId: Int) {
+        withContext(Dispatchers.IO) {
+            setsDAO.updateSetIsSelected(false, setModelId)
+            setsDAO.deleteSetFromGameDataBase(setModelId)
+        }
+    }
+
+
+    override suspend fun getSetsWhichSelected() : List<GameSetModel> {
+        return withContext(Dispatchers.IO){
+            val entityList = setsDAO.getSetsWhichSelected()
+            entityList.map{
+                    GameSetModel(
+                        it.id,
+                        it.setName,
+                        it.listWords
+                    )
+                }
+
+            }
+
+        }
+    }
