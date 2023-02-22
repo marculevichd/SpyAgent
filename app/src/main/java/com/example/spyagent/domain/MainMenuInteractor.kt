@@ -1,5 +1,6 @@
 package com.example.spyagent.domain
 
+import com.example.spyagent.domain.model.GameSetModel
 import com.example.spyagent.domain.model.SetModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -7,6 +8,17 @@ import javax.inject.Inject
 
 class MainMenuInteractor @Inject constructor(private val mainMenuRepository: MainMenuRepository) {
 
+    suspend fun addSetToGameDataBase(setModel: SetModel){
+        mainMenuRepository.addSetToGameDataBase(setModel)
+    }
+
+    suspend fun deleteSetFromGameDataBase(gameSetModelId:Int){
+        mainMenuRepository.deleteSetFromGameDataBase(gameSetModelId)
+    }
+
+    suspend fun getSetsWhichSelected(): List<GameSetModel> {
+        return mainMenuRepository.getSetsWhichSelected()
+    }
 
     suspend fun getWordsNewSet(): Flow<SetModel> {
         return mainMenuRepository.getWordsNewSet()

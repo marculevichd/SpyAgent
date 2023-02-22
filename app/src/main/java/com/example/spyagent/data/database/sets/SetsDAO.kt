@@ -35,16 +35,28 @@ interface SetsDAO {
     @Query("UPDATE sets_table SET setName = :newSetName WHERE id =:id")
     fun updateSetName(newSetName: String, id:Int)
 
+    @Query("UPDATE sets_table SET isSelected = :newIsSelected WHERE id =:id")
+    fun updateSetIsSelected(newIsSelected: Boolean, id:Int)
 
     @Query("SELECT (SELECT COUNT (*) FROM sets_table)!=0")
     fun doesStartSetExist(): Boolean
 
 
-
-
-
-
     @Query("SELECT COUNT (*) FROM sets_table")
     fun getSizeTable(): Int
+
+
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun addGameSet(gameSetEntity: GameSetEntity)
+
+    @Query("DELETE FROM game_sets_table WHERE id =:idForDelete")
+    fun deleteSetFromGameDataBase(idForDelete: Int)
+
+    @Query("DELETE FROM game_sets_table")
+    fun deleteAllGameSetsFromGameSetsTable()
+
+    @Query("SELECT * FROM game_sets_table")
+    fun getSetsWhichSelected(): List<GameSetEntity>
 
 }
