@@ -6,6 +6,10 @@ import kotlinx.coroutines.flow.Flow
 
 interface MainMenuRepository {
 
+    suspend fun selectCategoryToPlay(): GameSetModel
+
+    suspend fun checkDoesGameSetExist() : Boolean
+
     suspend fun getSetsWhichSelected(): List<GameSetModel>
 
     suspend fun addSetToGameDataBase(setModel: SetModel)

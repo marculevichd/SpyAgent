@@ -41,9 +41,11 @@ interface SetsDAO {
     @Query("SELECT (SELECT COUNT (*) FROM sets_table)!=0")
     fun doesStartSetExist(): Boolean
 
-
     @Query("SELECT COUNT (*) FROM sets_table")
     fun getSizeTable(): Int
+
+
+
 
 
 
@@ -58,5 +60,14 @@ interface SetsDAO {
 
     @Query("SELECT * FROM game_sets_table")
     fun getSetsWhichSelected(): List<GameSetEntity>
+
+    @Query("SELECT (SELECT COUNT (*) FROM game_sets_table)!=0")
+    fun doesGameSetTableExist(): Boolean
+
+
+
+
+
+
 
 }

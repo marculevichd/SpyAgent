@@ -20,4 +20,12 @@ object NavHelper {
     fun Fragment.navigateWithBundle(destinationId: Int, bundle: Bundle){
         findNavController().navigate(destinationId,bundle)
     }
+
+    fun Fragment.navigateWithBundleAndDeleteBackStack(destinationId: Int, bundle: Bundle, fragmentToDelete: Int){
+        val navOption = NavOptions.Builder()
+        navOption.setPopUpTo(fragmentToDelete, true)
+        findNavController().navigate(destinationId, bundle, navOption.build())
+    }
+
+
 }
