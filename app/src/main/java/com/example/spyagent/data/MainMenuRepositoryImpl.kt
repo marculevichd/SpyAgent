@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import kotlin.random.Random
 
 class MainMenuRepositoryImpl @Inject constructor(
     private val setsDAO: SetsDAO,
@@ -235,18 +236,39 @@ class MainMenuRepositoryImpl @Inject constructor(
     }
 
 
-    override suspend fun getSetsWhichSelected() : List<GameSetModel> {
-        return withContext(Dispatchers.IO){
+    override suspend fun getSetsWhichSelected(): List<GameSetModel> {
+        return withContext(Dispatchers.IO) {
             val entityList = setsDAO.getSetsWhichSelected()
-            entityList.map{
-                    GameSetModel(
-                        it.id,
-                        it.setName,
-                        it.listWords
-                    )
-                }
-
+            entityList.map {
+                GameSetModel(
+                    it.id,
+                    it.setName,
+                    it.listWords
+                )
             }
 
         }
     }
+
+    override suspend fun checkDoesGameSetExist(): Boolean {
+        return withContext(Dispatchers.IO) {
+            setsDAO.doesGameSetTableExist()
+        }
+    }
+
+    override suspend fun selectCategoryToPlay(): GameSetModel {
+        return withContext(Dispatchers.IO) {
+            val entity = setsDAO.getSetsWhichSelected()
+            val randomValues = Random.nextInt(0, entity.size)
+            GameSetModel(
+                entity[randomValues].id,
+                entity[randomValues].setName,
+                entity[randomValues].listWords
+            )
+        }
+    }
+
+
+
+
+}

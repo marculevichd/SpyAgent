@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.spyagent.R
 import com.example.spyagent.databinding.FragmentCreateGameBinding
+import com.example.spyagent.utils.Const
 import com.example.spyagent.utils.NavHelper.navigate
+import com.example.spyagent.utils.NavHelper.navigateWithBundleAndDeleteBackStack
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,10 +48,8 @@ class CreateGameFragment : Fragment() {
 
         viewModel.showSetsWhichSelected()
         viewModel.listSetsWhichSelected.observe(viewLifecycleOwner) {
-            for (i in it) {
-                viewBinding.createGameSelectCategoriesSelectedCategories.text =
-                    "${viewBinding.createGameSelectCategoriesSelectedCategories.text} $i "
-            }
+            val stringList = it.joinToString(" ")
+            viewBinding.createGameSelectCategoriesSelectedCategories.text = stringList
         }
 
         viewBinding.createGameNumberOfPlayerPlusOne.setOnClickListener {
@@ -85,6 +87,62 @@ class CreateGameFragment : Fragment() {
                     viewBinding.createGameNumberOfSpiesValue.text = it.toString()
                 }
             }
+        }
+
+        viewBinding.createGameTimerPlusOne.setOnClickListener {
+            if (Integer.parseInt(viewBinding.createGameTimerValue.text.toString()) < 10) {
+                viewModel.timerPlusOne(Integer.parseInt(viewBinding.createGameTimerValue.text.toString()))
+                viewModel.timerValue.observe(viewLifecycleOwner) {
+                    viewBinding.createGameTimerValue.text = it.toString()
+                }
+            }
+        }
+
+        viewBinding.createGameTimerMinusOne.setOnClickListener {
+            if (Integer.parseInt(viewBinding.createGameTimerValue.text.toString()) > 1) {
+                viewModel.timerMinusOne(Integer.parseInt(viewBinding.createGameTimerValue.text.toString()))
+                viewModel.timerValue.observe(viewLifecycleOwner) {
+                    viewBinding.createGameTimerValue.text = it.toString()
+                }
+            }
+        }
+
+        viewBinding.confirmButton.setOnClickListener {
+            viewModel.checkDoesGameSetExist()
+
+            viewModel.doesGameSetExist.observe(viewLifecycleOwner) {
+                if (it) {
+                    viewModel.navToStartGame(
+                        Integer.parseInt(viewBinding.createGameNumberOfPlayerValue.text.toString()),
+                        Integer.parseInt(viewBinding.createGameNumberOfSpiesValue.text.toString()),
+                        Integer.parseInt(viewBinding.createGameTimerValue.text.toString()),
+                        viewBinding.createGameCategoriesCheckBox.isChecked
+                    )
+                    viewModel.helpNavToSet.observe(viewLifecycleOwner) {
+                        if (it != null) {
+                            val bundle = Bundle()
+                            bundle.putInt(Const.NUMBER_OF_PLAYER_VALUE, it.numberOfPlayerValue)
+                            bundle.putInt(Const.NUMBER_OF_SPIES_VALUE, it.numberOfSpiesValue)
+                            bundle.putInt(Const.TIMER_VALUE, it.timerValue)
+                            bundle.putBoolean(Const.SHOW_CATEGORY, it.showCategory)
+
+                            navigateWithBundleAndDeleteBackStack(
+                                it.destination,
+                                bundle,
+                                it.fragmentToDelete
+                            )
+                            viewModel.userNavigatedToStartGame()
+                        }
+                    }
+                } else {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.add_no_less_then_one_set),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
         }
 
 

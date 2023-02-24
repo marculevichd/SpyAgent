@@ -243,7 +243,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/create_game_timer_title" />
 
             <Button
-                android:id="@+id/create_game_number_timer_one"
+                android:id="@+id/create_game_timer_minus_one"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="8dp"

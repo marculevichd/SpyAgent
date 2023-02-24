@@ -8,6 +8,17 @@ import javax.inject.Inject
 
 class MainMenuInteractor @Inject constructor(private val mainMenuRepository: MainMenuRepository) {
 
+
+    suspend fun selectCategoryToPlay(): GameSetModel {
+        return mainMenuRepository.selectCategoryToPlay()
+    }
+
+
+
+    suspend fun checkDoesGameSetExist() : Boolean  {
+        return mainMenuRepository.checkDoesGameSetExist()
+    }
+
     suspend fun addSetToGameDataBase(setModel: SetModel){
         mainMenuRepository.addSetToGameDataBase(setModel)
     }
