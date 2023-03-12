@@ -18,7 +18,7 @@ import com.example.spyagent.utils.Const.SET_NAME_BUNDLE_SETS
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SetDetailFragment : Fragment(), SetDetailListener {
+class SetDetailFragment : Fragment(), SetDetailListener, DialogFragmentCallbackInterface {
 
     private val viewModel: SetDetailViewModel by viewModels()
 
@@ -57,27 +57,10 @@ class SetDetailFragment : Fragment(), SetDetailListener {
         }
 
         viewBinding.addWord.setOnClickListener {
-            val editText = EditText(requireContext())
-
-            val alertDialog = AlertDialog.Builder(requireContext())
-                .setTitle(getString(R.string.enter_new_word))
-                .setCancelable(false)
-                .setView(editText)
-                .setPositiveButton(getString(R.string.Confirm)) { _, _ ->
-                    if (!editText.text.isNullOrEmpty()) {
-                        viewModel.addNewWord(
-                            bundle.getInt(ID_BUNDLE_SETS),
-                            editText.text.toString()
-                        )
-                    }
-                }
-                .setNegativeButton(getString(R.string.Cancel)) { dialog, _ ->
-                    dialog.cancel()
-                }
-            alertDialog.show()
+            val dialogFragment = MyDialogFragment("")
+            dialogFragment.setTargetFragment(this, 0)
+            dialogFragment.show(parentFragmentManager, getString(R.string.tagAddWordDetail))
         }
-
-
     }
 
 
@@ -92,30 +75,21 @@ class SetDetailFragment : Fragment(), SetDetailListener {
     }
 
     override fun updateWord(word: String) {
-
-        val editText = EditText(requireContext())
-        editText.setText(word)
-
-        val alertDialog = AlertDialog.Builder(requireContext())
-            .setTitle(getString(R.string.text_new_value))
-            .setCancelable(false)
-            .setView(editText)
-            .setPositiveButton(getString(R.string.Confirm)) { _, _ ->
-                if (!editText.text.isNullOrEmpty()) {
-                    viewModel.updateWord(
-                        bundle.getInt(ID_BUNDLE_SETS),
-                        word,
-                        editText.text.toString()
-                    )
-                }
-            }
-            .setNegativeButton(getString(R.string.Cancel)) { dialog, _ ->
-                dialog.cancel()
-            }
-        alertDialog.show()
+        val dialogFragment = MyDialogFragment(word)
+        dialogFragment.setTargetFragment(this, 0)
+        dialogFragment.show(parentFragmentManager, getString(R.string.tagUpdateWordDetail))
     }
 
     override fun deleteWord(word: String) {
         viewModel.removeWord(bundle.getInt(ID_BUNDLE_SETS), word)
+    }
+
+    override fun updateWord(oldWord: String, newWord: String) {
+        viewModel.updateWord(bundle.getInt(ID_BUNDLE_SETS), oldWord, newWord)
+
+    }
+
+    override fun createNewWord(newWord: String) {
+        viewModel.addNewWord(bundle.getInt(ID_BUNDLE_SETS), newWord)
     }
 }

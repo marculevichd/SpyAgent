@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="40sp"
+            android:gravity="center"
             android:hint="@string/set_name"
             android:maxLength="20"
             app:layout_constraintEnd_toEndOf="parent"
