@@ -11,10 +11,10 @@ import com.example.spyagent.databinding.FragmentSetsBinding
 import com.example.spyagent.domain.model.SetModel
 import com.example.spyagent.presentation.view.fragments.mainmenu.sets.adapter.SetsAdapter
 import com.example.spyagent.presentation.view.fragments.mainmenu.sets.adapter.SetsListener
-import com.example.spyagent.utils.Const.ID_BUNDLE_SETS
-import com.example.spyagent.utils.Const.SET_NAME_BUNDLE_SETS
 import com.example.spyagent.utils.NavHelper.navigate
 import com.example.spyagent.utils.NavHelper.navigateWithBundle
+import com.example.spyagent.utils.Const.ID_BUNDLE_SETS
+import com.example.spyagent.utils.Const.SET_NAME_BUNDLE_SETS
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

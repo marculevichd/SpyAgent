@@ -36,18 +36,9 @@ class MainActivity : AppCompatActivity() {
         viewModel.getResultSawOnBoard()
 
         viewModel.sawOnBoard.observe(this) {
-            if (it == false) {
-                val navGraph = navController.navInflater.inflate(R.navigation.main_graph)
-                navGraph.setStartDestination(R.id.onBoardingFragment)
-                navController.graph = navGraph
-            } else {
-                val navGraph = navController.navInflater.inflate(R.navigation.main_graph)
-                navGraph.setStartDestination(R.id.mainMenuFragment)
-                navController.graph = navGraph
-            }
+            val navGraph = navController.navInflater.inflate(it.graph)
+            navGraph.setStartDestination(it.startDestination)
+            navController.graph = navGraph
         }
-
-
-
     }
 }

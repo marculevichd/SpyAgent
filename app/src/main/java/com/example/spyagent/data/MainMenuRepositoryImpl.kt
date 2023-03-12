@@ -6,6 +6,7 @@ import com.example.spyagent.data.database.sets.SetsDAO
 import com.example.spyagent.domain.MainMenuRepository
 import com.example.spyagent.domain.model.GameSetModel
 import com.example.spyagent.domain.model.SetModel
+import com.example.spyagent.utils.Const.FIRST_WORD
 import com.example.spyagent.utils.Const.SET_NAME
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -89,59 +90,28 @@ class MainMenuRepositoryImpl @Inject constructor(
         }
     }
 
-
-    override suspend fun addNewWordNewSet(newWord: String) {
-        withContext(Dispatchers.IO) {
-            val id = setsDAO.getSizeTable()
-            val entity = setsDAO.searchInSetsTableWithoutFlow(id)
-            val newList = entity.listWords
-            newList.add(newWord)
-            setsDAO.updateList(newList, id)
-        }
-    }
-
-    override suspend fun createNewSet() {
-        withContext(Dispatchers.IO) {
+    override suspend fun createNewSet(): Flow<SetModel> {
+        return withContext(Dispatchers.IO) {
             val id = setsDAO.getSizeTable() + 1
             setsDAO.addSet(
                 SetEntity(
                     id,
                     SET_NAME,
-                    arrayListOf(),
+                    arrayListOf(FIRST_WORD),
                     false
                 )
             )
-        }
-    }
 
+            val entity: Flow<SetEntity> = setsDAO.searchInSetsTable(id)
+            entity.map {
+                SetModel(
+                    it.id,
+                    it.setName,
+                    it.listWords,
+                    it.isSelected
+                )
+            }
 
-    override suspend fun updateWordNewSet(word: String, newWord: String) {
-        withContext(Dispatchers.IO) {
-            val id = setsDAO.getSizeTable()
-            val entity = setsDAO.searchInSetsTableWithoutFlow(id)
-            val newList = entity.listWords
-            val index = newList.indexOf(word)
-            newList[index] = newWord
-            setsDAO.updateList(newList, id)
-        }
-    }
-
-
-    override suspend fun updateNewSetName(newSetName: String) {
-        withContext(Dispatchers.IO) {
-            val id = setsDAO.getSizeTable()
-            setsDAO.updateSetName(newSetName, id)
-        }
-    }
-
-
-    override suspend fun removeWordNewSet(word: String) {
-        withContext(Dispatchers.IO) {
-            val id = setsDAO.getSizeTable()
-            val entity = setsDAO.searchInSetsTableWithoutFlow(id)
-            val newList = entity.listWords
-            newList.remove(word)
-            setsDAO.updateList(newList, id)
         }
     }
 
@@ -176,25 +146,10 @@ class MainMenuRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getWordsNewSet(): Flow<SetModel> {
-        return withContext(Dispatchers.IO) {
-            val id = setsDAO.getSizeTable()
-            val entity: Flow<SetEntity> = setsDAO.searchInSetsTable(id)
-            entity.map {
-                SetModel(
-                    it.id,
-                    it.setName,
-                    it.listWords,
-                    it.isSelected
-                )
-            }
-        }
-    }
-
-
     override suspend fun deleteSet(id: Int) {
         withContext(Dispatchers.IO) {
             setsDAO.deleteSetFromSetsTableById(id)
+            setsDAO.deleteSetFromGameDataBase(id)
         }
     }
 

@@ -4,7 +4,6 @@ package com.example.spyagent.presentation.view.fragments.onboarding
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.navigation.NavDestination
 import com.example.spyagent.R
 import com.example.spyagent.domain.StartNavigationInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +16,7 @@ class OnBoardingViewModel @Inject constructor(private val startNavigationInterac
 
     private var _saveResultOnBoard = MutableLiveData<Unit>()
 
-    fun saveResultSawOnBoard(): Unit {
+    fun saveResultSawOnBoard() {
         startNavigationInteractor.saveResultOnBoard()
         _saveResultOnBoard.value = Unit
     }

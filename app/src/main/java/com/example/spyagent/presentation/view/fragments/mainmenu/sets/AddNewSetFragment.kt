@@ -34,10 +34,8 @@ class AddNewSetFragment : Fragment(), NewSetListener {
         return viewBinding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         newSetAdapter = NewSetAdapter(this)
 
@@ -45,12 +43,9 @@ class AddNewSetFragment : Fragment(), NewSetListener {
         viewBinding.setDetailRecyclerView.adapter = newSetAdapter
 
         viewModel.createNewSet()
-
-        viewModel.getWordsNewSet()
         viewModel.listWordsNewSet.observe(viewLifecycleOwner) {
-            newSetAdapter.submitList(it)
+            newSetAdapter.submitList(it.listWords)
         }
-
 
         viewBinding.addWord.setOnClickListener {
             val editText = EditText(requireContext())
@@ -74,7 +69,7 @@ class AddNewSetFragment : Fragment(), NewSetListener {
 
     override fun onStop() {
         super.onStop()
-        if(viewBinding.setDetailTitle.text.toString().isNotEmpty()){
+        if (viewBinding.setDetailTitle.text.toString().isNotEmpty()) {
             viewModel.updateNewSetName(
                 viewBinding.setDetailTitle.text.toString()
             )
@@ -83,7 +78,6 @@ class AddNewSetFragment : Fragment(), NewSetListener {
     }
 
     override fun updateWord(word: String) {
-
         val editText = EditText(requireContext())
         editText.setText(word)
 
@@ -100,13 +94,9 @@ class AddNewSetFragment : Fragment(), NewSetListener {
                 dialog.cancel()
             }
         alertDialog.show()
-
-
     }
 
     override fun deleteWord(word: String) {
         viewModel.removeWordNewSet(word)
     }
-
-
 }

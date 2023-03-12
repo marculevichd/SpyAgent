@@ -1,5 +1,6 @@
 package com.example.spyagent.presentation.view.fragments.mainmenu.startGame
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,26 +18,21 @@ import kotlin.random.Random
 class StartGameViewModel @Inject constructor(private val mainMenuInteractor: MainMenuInteractor) :
     ViewModel() {
 
-    private var _gameSetToPlay = MutableLiveData<GameSetAndWord>()
-    val gameSetToPlay: LiveData<GameSetAndWord> = _gameSetToPlay
+    private var _gamePreparation = MutableLiveData<GamePreparation>()
+    val gamePreparation: LiveData<GamePreparation> = _gamePreparation
 
-    fun selectCategoryToPlay() {
+    fun doGamePreparation(players: Int, spies: Int) {
         viewModelScope.launch {
-            val gameSet = mainMenuInteractor.selectCategoryToPlay()
-            val word = Random.nextInt(1, gameSet.listWords.size)
-            _gameSetToPlay.value = GameSetAndWord(gameSet, gameSet.listWords[word])
+            try {
+                val gameSet = mainMenuInteractor.selectCategoryToPlay()
+                val word = Random.nextInt(1, gameSet.listWords.size)
+                val spy = Random.nextInt(1, players + spies)
+
+                _gamePreparation.value = GamePreparation(gameSet, gameSet.listWords[word], players + spies, spy)
+            } catch (e: Exception) {
+                Log.w("", e.toString())
+            }
         }
-    }
-
-    private var _amountPlayersAndWhoWillBeSpy =
-        MutableLiveData<HelperAmountPlayersAndWhoWillBeSpy>()
-    val amountPlayersAndWhoWillBeSpy: LiveData<HelperAmountPlayersAndWhoWillBeSpy> =
-        _amountPlayersAndWhoWillBeSpy
-
-    fun countAmountPlayersAndWhoWillBeSpy(players: Int, spies: Int) {
-        val spy = Random.nextInt(1, players + spies)
-        _amountPlayersAndWhoWillBeSpy.value =
-            HelperAmountPlayersAndWhoWillBeSpy(players + spies, spy)
     }
 
     private var _navHelperTimer = MutableLiveData<HelperNavToTimer?>()
@@ -71,7 +67,6 @@ class StartGameViewModel @Inject constructor(private val mainMenuInteractor: Mai
 
 }
 
-data class HelperAmountPlayersAndWhoWillBeSpy(val amountPlayers: Int, val spy: Int)
 data class HelperNavToTimer(val destination: Int, val fragmentToDelete: Int)
 data class HelperNavMainMenu(val destination: Int, val fragmentToDelete: Int)
-data class GameSetAndWord(val gameSetModel: GameSetModel, val word: String)
+data class GamePreparation(val gameSetModel: GameSetModel, val word: String, val amountPlayers: Int, val spy: Int)

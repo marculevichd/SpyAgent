@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface MainMenuRepository {
 
+    suspend fun  createNewSet() : Flow<SetModel>
+
     suspend fun selectCategoryToPlay(): GameSetModel
 
     suspend fun checkDoesGameSetExist() : Boolean
@@ -16,19 +18,7 @@ interface MainMenuRepository {
 
     suspend fun deleteSetFromGameDataBase(gameSetModelId:Int)
 
-    suspend fun getWordsNewSet(): Flow<SetModel>
-
-    suspend fun updateNewSetName(newSetName: String)
-
-    suspend fun removeWordNewSet(word: String)
-
-    suspend fun addNewWordNewSet(newWord:String)
-
-    suspend fun  createNewSet()
-
     suspend fun updateWord(id: Int, word: String, newWord:String)
-
-    suspend fun updateWordNewSet(word: String, newWord:String)
 
     suspend fun addStartSet()
 

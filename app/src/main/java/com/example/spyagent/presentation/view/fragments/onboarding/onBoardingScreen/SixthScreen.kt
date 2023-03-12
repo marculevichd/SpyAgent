@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.spyagent.databinding.FragmentSixthScreenBinding
-import com.example.spyagent.utils.NavHelper.navigate
 import com.example.spyagent.utils.NavHelper.navigateWithDeleteBackStack
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -1,7 +1,6 @@
 package com.example.spyagent.presentation.view.fragments.mainmenu.startGame
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,13 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.spyagent.R
 import com.example.spyagent.databinding.FragmentStartGameBinding
-import com.example.spyagent.utils.Const
+import com.example.spyagent.utils.NavHelper.navigateWithBundleAndDeleteBackStack
+import com.example.spyagent.utils.NavHelper.navigateWithDeleteBackStack
 import com.example.spyagent.utils.Const.NUMBER_OF_PLAYER_VALUE
 import com.example.spyagent.utils.Const.NUMBER_OF_SPIES_VALUE
 import com.example.spyagent.utils.Const.SHOW_CATEGORY
-import com.example.spyagent.utils.NavHelper.navigateWithBundle
-import com.example.spyagent.utils.NavHelper.navigateWithBundleAndDeleteBackStack
-import com.example.spyagent.utils.NavHelper.navigateWithDeleteBackStack
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,19 +41,13 @@ class StartGameFragment : Fragment() {
 
         bundle?.let {
 
-            val timerValue = (bundle.getInt(Const.TIMER_VALUE) * 60 * 1_000).toLong()
-            Log.w("ТАЙМЕР ВАЛУЕ", timerValue.toString())
-
-
-            viewModel.selectCategoryToPlay()
-
-            viewModel.countAmountPlayersAndWhoWillBeSpy(
+            viewModel.doGamePreparation(
                 bundle.getInt(NUMBER_OF_PLAYER_VALUE),
                 bundle.getInt(NUMBER_OF_SPIES_VALUE)
             )
 
             if (bundle.getBoolean(SHOW_CATEGORY)) {
-                viewModel.gameSetToPlay.observe(viewLifecycleOwner) {
+                viewModel.gamePreparation.observe(viewLifecycleOwner) {
                     viewBinding.set.text = it.gameSetModel.setName
                 }
             }
@@ -64,13 +55,11 @@ class StartGameFragment : Fragment() {
             viewBinding.cardViewPlayer.setOnClickListener {
                 showWord = !showWord
 
-                viewModel.amountPlayersAndWhoWillBeSpy.observe(viewLifecycleOwner) {
+                viewModel.gamePreparation.observe(viewLifecycleOwner) {
                     if (showWord) {
                         if (playerTurn != it.spy) {
-                            viewModel.gameSetToPlay.observe(viewLifecycleOwner) {
                                 viewBinding.playerAndWord.text = it.word
                                 viewBinding.description.text = getString(R.string.descriptionWord)
-                            }
                             playerTurn++
                         } else {
                             viewBinding.playerAndWord.text = getString(R.string.you_are_spy)

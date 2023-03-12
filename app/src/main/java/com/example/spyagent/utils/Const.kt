@@ -4,6 +4,7 @@ object Const {
     const val ID_BUNDLE_SETS = "ID_BUNDLE_SETS"
     const val SET_NAME_BUNDLE_SETS = "SET_NAME_BUNDLE_SETS"
     const val SET_NAME = "Set name"
+    const val FIRST_WORD = "First Word"
 
 
     const val NUMBER_OF_PLAYER_VALUE = "NUMBER_OF_PLAYER_VALUE"
