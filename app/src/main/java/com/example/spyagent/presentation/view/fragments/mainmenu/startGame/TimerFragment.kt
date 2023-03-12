@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.spyagent.R
 import com.example.spyagent.databinding.FragmentTimerBinding
-import com.example.spyagent.utils.Const.TIMER_VALUE
 import com.example.spyagent.utils.NavHelper.navigateWithDeleteBackStack
+import com.example.spyagent.utils.Const.TIMER_VALUE
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

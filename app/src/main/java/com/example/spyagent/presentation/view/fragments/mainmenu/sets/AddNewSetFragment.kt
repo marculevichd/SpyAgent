@@ -1,11 +1,9 @@
 package com.example.spyagent.presentation.view.fragments.mainmenu.sets
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +14,7 @@ import com.example.spyagent.presentation.view.fragments.mainmenu.sets.adapter.Ne
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AddNewSetFragment : Fragment(), NewSetListener {
+class AddNewSetFragment : Fragment(), NewSetListener, DialogFragmentCallbackInterface {
 
 
     private val viewModel: AddNewSetViewModel by viewModels()
@@ -34,10 +32,8 @@ class AddNewSetFragment : Fragment(), NewSetListener {
         return viewBinding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         newSetAdapter = NewSetAdapter(this)
 
@@ -45,36 +41,21 @@ class AddNewSetFragment : Fragment(), NewSetListener {
         viewBinding.setDetailRecyclerView.adapter = newSetAdapter
 
         viewModel.createNewSet()
-
-        viewModel.getWordsNewSet()
         viewModel.listWordsNewSet.observe(viewLifecycleOwner) {
-            newSetAdapter.submitList(it)
+            newSetAdapter.submitList(it.listWords)
         }
 
-
         viewBinding.addWord.setOnClickListener {
-            val editText = EditText(requireContext())
-
-            val alertDialog = AlertDialog.Builder(requireContext())
-                .setTitle(getString(R.string.enter_new_word))
-                .setCancelable(false)
-                .setView(editText)
-                .setPositiveButton(getString(R.string.Confirm)) { _, _ ->
-                    if (!editText.text.isNullOrEmpty()) {
-                        viewModel.addNewWordNewSet(editText.text.toString())
-                    }
-                }
-                .setNegativeButton(getString(R.string.Cancel)) { dialog, _ ->
-                    dialog.cancel()
-                }
-            alertDialog.show()
+            val dialogFragment = MyDialogFragment("")
+            dialogFragment.setTargetFragment(this, 0)
+            dialogFragment.show(parentFragmentManager, getString(R.string.tagAddWordNewSet))
         }
     }
 
 
     override fun onStop() {
         super.onStop()
-        if(viewBinding.setDetailTitle.text.toString().isNotEmpty()){
+        if (viewBinding.setDetailTitle.text.toString().isNotEmpty()) {
             viewModel.updateNewSetName(
                 viewBinding.setDetailTitle.text.toString()
             )
@@ -84,23 +65,9 @@ class AddNewSetFragment : Fragment(), NewSetListener {
 
     override fun updateWord(word: String) {
 
-        val editText = EditText(requireContext())
-        editText.setText(word)
-
-        val alertDialog = AlertDialog.Builder(requireContext())
-            .setTitle(getString(R.string.text_new_value))
-            .setCancelable(false)
-            .setView(editText)
-            .setPositiveButton(getString(R.string.Confirm)) { _, _ ->
-                if (!editText.text.isNullOrEmpty()) {
-                    viewModel.updateWordNewSet(word, editText.text.toString())
-                }
-            }
-            .setNegativeButton(getString(R.string.Cancel)) { dialog, _ ->
-                dialog.cancel()
-            }
-        alertDialog.show()
-
+        val dialogFragment = MyDialogFragment(word)
+        dialogFragment.setTargetFragment(this, 0)
+        dialogFragment.show(parentFragmentManager, getString(R.string.tagUpdateWordNewSet))
 
     }
 
@@ -108,5 +75,11 @@ class AddNewSetFragment : Fragment(), NewSetListener {
         viewModel.removeWordNewSet(word)
     }
 
+    override fun updateWord(oldWord: String, newWord: String) {
+        viewModel.updateWordNewSet(oldWord, newWord)
+    }
 
+    override fun createNewWord(newWord: String) {
+        viewModel.addNewWordNewSet(newWord)
+    }
 }

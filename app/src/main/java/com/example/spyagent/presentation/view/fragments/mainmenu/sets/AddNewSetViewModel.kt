@@ -1,10 +1,12 @@
 package com.example.spyagent.presentation.view.fragments.mainmenu.sets
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.spyagent.domain.MainMenuInteractor
+import com.example.spyagent.domain.model.SetModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,47 +16,60 @@ class AddNewSetViewModel @Inject constructor(private val mainMenuInteractor: Mai
     ViewModel() {
 
 
-    private var _listWordsNewSet = MutableLiveData<List<String>>()
-    val listWordsNewSet: LiveData<List<String>> = _listWordsNewSet
+    private var _listWordsNewSet = MutableLiveData<SetModel>()
+    val listWordsNewSet: LiveData<SetModel> = _listWordsNewSet
 
-    fun getWordsNewSet() {
+    fun createNewSet() {
         viewModelScope.launch {
-            val flow = mainMenuInteractor.getWordsNewSet()
-            flow.collect {
-                _listWordsNewSet.value = it.listWords
+            try {
+                val flow = mainMenuInteractor.createNewSet()
+                flow.collect {
+                    _listWordsNewSet.value = it
+                }
+            } catch (e: Exception) {
+                Log.w("", e.toString())
             }
         }
     }
 
-
     fun updateNewSetName(newSetName: String) {
-        viewModelScope.launch {
-            mainMenuInteractor.updateNewSetName(newSetName)
+        try {
+            viewModelScope.launch {
+                mainMenuInteractor.updateSetName(_listWordsNewSet.value!!.id, newSetName)
+            }
+        } catch (e: Exception) {
+            Log.w("", e.toString())
         }
     }
 
-    fun createNewSet() {
-        viewModelScope.launch {
-            mainMenuInteractor.createNewSet()
-        }
-    }
 
     fun addNewWordNewSet(word: String) {
-        viewModelScope.launch {
-            mainMenuInteractor.addNewWordNewSet(word)
+        try {
+            viewModelScope.launch {
+                mainMenuInteractor.addNewWord(_listWordsNewSet.value!!.id, word)
+            }
+        } catch (e: Exception) {
+            Log.w("", e.toString())
         }
     }
 
     fun updateWordNewSet(word: String, newWord: String) {
-        viewModelScope.launch {
-            mainMenuInteractor.updateWordNewSet(word, newWord)
+        try {
+            viewModelScope.launch {
+                mainMenuInteractor.updateWord(_listWordsNewSet.value!!.id, word, newWord)
+            }
+        } catch (e: Exception) {
+            Log.w("", e.toString())
         }
     }
 
     fun removeWordNewSet(word: String) {
-        viewModelScope.launch {
-            mainMenuInteractor.removeWordNewSet(word)
+        try {
+            viewModelScope.launch {
+                mainMenuInteractor.removeWord(_listWordsNewSet.value!!.id, word)
+            }
+        } catch (e: Exception) {
+            Log.w("", e.toString())
         }
     }
-
 }

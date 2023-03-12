@@ -101,6 +101,12 @@ Non-Spy Victory
     <string name="play_again">Play again</string>
     <string name="player_1">Player 1</string>
     <string name="add_no_less_then_one_set">Add no less than one set</string>
+    <string name="spy">SPY</string>
+    <string name="agent">AGENT</string>
+    <string name="tagAddWordNewSet">tagAddWordNewSet</string>
+    <string name="tagUpdateWordNewSet">tagUpdateWordNewSet</string>
+    <string name="tagAddWordDetail">tagAddWordDetail</string>
+    <string name="tagUpdateWordDetail">tagUpdateWordDetail</string>
 
 
 </resources>

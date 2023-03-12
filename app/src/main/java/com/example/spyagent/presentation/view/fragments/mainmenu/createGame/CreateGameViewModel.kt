@@ -1,15 +1,12 @@
 package com.example.spyagent.presentation.view.fragments.mainmenu.createGame
 
-import android.util.ArraySet
-import androidx.collection.arraySetOf
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.spyagent.R
 import com.example.spyagent.domain.MainMenuInteractor
-import com.example.spyagent.domain.model.SetModel
-import com.example.spyagent.presentation.view.fragments.mainmenu.sets.HelpNavToSet
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -34,13 +31,17 @@ class CreateGameViewModel @Inject constructor(private val mainMenuInteractor: Ma
     val listSetsWhichSelected: LiveData<List<String>> = _listSetsWhichSelected
 
     fun showSetsWhichSelected() {
-        viewModelScope.launch {
-            val list = mainMenuInteractor.getSetsWhichSelected()
-            val listTitle: ArrayList<String> = arrayListOf()
-            list.map {
-                listTitle.add(it.setName)
+        try {
+            viewModelScope.launch {
+                val list = mainMenuInteractor.getSetsWhichSelected()
+                val listTitle: ArrayList<String> = arrayListOf()
+                list.map {
+                    listTitle.add(it.setName)
+                }
+                _listSetsWhichSelected.value = listTitle
             }
-            _listSetsWhichSelected.value = listTitle
+        } catch (e: Exception) {
+            Log.w("", e.toString())
         }
     }
 
@@ -82,8 +83,12 @@ class CreateGameViewModel @Inject constructor(private val mainMenuInteractor: Ma
     val doesGameSetExist: LiveData<Boolean> = _doesGameSetExist
 
     fun checkDoesGameSetExist() {
-        viewModelScope.launch {
+        try {
+            viewModelScope.launch {
             _doesGameSetExist.value = mainMenuInteractor.checkDoesGameSetExist()
+        }
+        } catch (e: Exception) {
+            Log.w("", e.toString())
         }
     }
 

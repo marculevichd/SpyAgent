@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.spyagent.databinding.FragmentOnBoardingBinding
 import com.example.spyagent.presentation.view.fragments.onboarding.onBoardingScreen.*
-import com.example.spyagent.utils.NavHelper.navigate
 import com.example.spyagent.utils.NavHelper.navigateWithDeleteBackStack
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint

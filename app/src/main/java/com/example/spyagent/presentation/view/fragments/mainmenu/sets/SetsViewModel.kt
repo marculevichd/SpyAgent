@@ -1,5 +1,6 @@
 package com.example.spyagent.presentation.view.fragments.mainmenu.sets
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,20 +19,28 @@ class SetsViewModel @Inject constructor(private val mainMenuInteractor: MainMenu
     private val _foundSets = MutableLiveData<List<SetModel>>()
     val foundSets: LiveData<List<SetModel>> = _foundSets
     fun searchSets(searchText: String) {
-        viewModelScope.launch {
-            val temple = mainMenuInteractor.searchSets(searchText)
-            temple.collect {
-                _foundSets.value = it
+        try {
+            viewModelScope.launch {
+                val temple = mainMenuInteractor.searchSets(searchText)
+                temple.collect {
+                    _foundSets.value = it
+                }
             }
+        } catch (e: Exception) {
+            Log.w("", e.toString())
         }
     }
 
     private var _deleteAndNavigate = MutableLiveData<Unit>()
 
     fun deleteSet(id: Int) {
-        viewModelScope.launch {
-            mainMenuInteractor.deleteSet(id)
-            _deleteAndNavigate.value = Unit
+        try {
+            viewModelScope.launch {
+                mainMenuInteractor.deleteSet(id)
+                _deleteAndNavigate.value = Unit
+            }
+        } catch (e: Exception) {
+            Log.w("", e.toString())
         }
     }
 
@@ -58,20 +67,20 @@ class SetsViewModel @Inject constructor(private val mainMenuInteractor: MainMenu
     }
 
 
-
-
     private var _listSets = MutableLiveData<List<SetModel>>()
     val listSets: LiveData<List<SetModel>> = _listSets
     fun showSets() {
-        viewModelScope.launch {
-            val temple = mainMenuInteractor.getSets()
-            temple.collect {
-                _listSets.value = it
+        try {
+            viewModelScope.launch {
+                val temple = mainMenuInteractor.getSets()
+                temple.collect {
+                    _listSets.value = it
+                }
             }
+        } catch (e: Exception) {
+            Log.w("", e.toString())
         }
     }
-
-
 }
 
 data class HelpNavToSet(val destination: Int, val setModel: SetModel)

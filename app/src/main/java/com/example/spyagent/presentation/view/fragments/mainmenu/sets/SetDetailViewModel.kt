@@ -1,5 +1,6 @@
 package com.example.spyagent.presentation.view.fragments.mainmenu.sets
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,36 +18,55 @@ class SetDetailViewModel @Inject constructor(private val mainMenuInteractor: Mai
     val listWords: LiveData<List<String>> = _listWords
 
     fun getWords(id: Int) {
-        viewModelScope.launch {
-            val flow = mainMenuInteractor.getWords(id)
-            flow.collect {
-                _listWords.value = it.listWords
+        try {
+            viewModelScope.launch {
+                val flow = mainMenuInteractor.getWords(id)
+                flow.collect {
+                    _listWords.value = it.listWords
+                }
             }
+        } catch (e: Exception) {
+            Log.w("", e.toString())
         }
     }
 
     fun updateWord(id: Int, word: String, newWord: String) {
-        viewModelScope.launch {
-            mainMenuInteractor.updateWord(id, word, newWord)
+        try {
+            viewModelScope.launch {
+                mainMenuInteractor.updateWord(id, word, newWord)
+            }
+        } catch (e: Exception) {
+            Log.w("", e.toString())
         }
     }
 
     fun removeWord(id: Int, word: String) {
-        viewModelScope.launch {
-            mainMenuInteractor.removeWord(id, word)
+        try {
+            viewModelScope.launch {
+                mainMenuInteractor.removeWord(id, word)
+            }
+        } catch (e: Exception) {
+            Log.w("", e.toString())
         }
     }
 
     fun updateSetName(id: Int, newSetName: String) {
-        viewModelScope.launch {
-            mainMenuInteractor.updateSetName(id, newSetName)
+        try {
+            viewModelScope.launch {
+                mainMenuInteractor.updateSetName(id, newSetName)
+            }
+        } catch (e: Exception) {
+            Log.w("", e.toString())
         }
     }
 
     fun addNewWord(id: Int, newWord: String) {
-        viewModelScope.launch {
-            mainMenuInteractor.addNewWord(id, newWord)
+        try {
+            viewModelScope.launch {
+                mainMenuInteractor.addNewWord(id, newWord)
+            }
+        } catch (e: Exception) {
+            Log.w("", e.toString())
         }
     }
-
 }

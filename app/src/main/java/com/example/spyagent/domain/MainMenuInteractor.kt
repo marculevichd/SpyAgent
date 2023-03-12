@@ -9,11 +9,14 @@ import javax.inject.Inject
 class MainMenuInteractor @Inject constructor(private val mainMenuRepository: MainMenuRepository) {
 
 
+
+    suspend fun createNewSet():  Flow<SetModel> {
+        return mainMenuRepository.createNewSet()
+    }
+
     suspend fun selectCategoryToPlay(): GameSetModel {
         return mainMenuRepository.selectCategoryToPlay()
     }
-
-
 
     suspend fun checkDoesGameSetExist() : Boolean  {
         return mainMenuRepository.checkDoesGameSetExist()
@@ -31,28 +34,9 @@ class MainMenuInteractor @Inject constructor(private val mainMenuRepository: Mai
         return mainMenuRepository.getSetsWhichSelected()
     }
 
-    suspend fun getWordsNewSet(): Flow<SetModel> {
-        return mainMenuRepository.getWordsNewSet()
-    }
-
-    suspend fun updateNewSetName(newSetName: String) {
-        mainMenuRepository.updateNewSetName(newSetName)
-    }
-
-    suspend fun removeWordNewSet(word: String) {
-        mainMenuRepository.removeWordNewSet(word)
-    }
-
-    suspend fun createNewSet() {
-        mainMenuRepository.createNewSet()
-    }
 
     suspend fun addNewWord(id: Int, newWord: String) {
         mainMenuRepository.addNewWord(id, newWord)
-    }
-
-    suspend fun addNewWordNewSet(newWord: String) {
-        mainMenuRepository.addNewWordNewSet(newWord)
     }
 
     suspend fun removeWord(id: Int, word: String) {
@@ -63,9 +47,6 @@ class MainMenuInteractor @Inject constructor(private val mainMenuRepository: Mai
         mainMenuRepository.updateWord(id, word, newWord)
     }
 
-    suspend fun updateWordNewSet(word: String, newWord: String) {
-        mainMenuRepository.updateWordNewSet(word, newWord)
-    }
 
     suspend fun addStartSet() {
         mainMenuRepository.addStartSet()
